@@ -5,10 +5,15 @@ class person:
        self.name = name
        self.address = address
        self.email = email
+   def __str__(self):
+       return f'{self.name} {self.address} {self.email}'
 
-list = []
-for i in range (5):
-    list.append(person(fake.name(), fake.address(), fake.email()))
+card = person(fake.name(), fake.address(), fake.email())
+print(card)
 
-for i in list:
-    print(i.name,",", i.address,",", i.email)
+# list = []
+# for i in range (5):
+#     list.append(person(fake.name(), fake.address(), fake.email()))
+
+# for i in list:
+#     print(i.name,",", i.address,",", i.email)
