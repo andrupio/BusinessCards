@@ -6,29 +6,32 @@ class BaseContact:
         self.last_name = last_name
         self.phone = phone
         self.email = email
-    def contact(number):
-        for i in range(number):
-            first_name = fake.first_name()
-            last_name = fake.last_name()
-            job = fake.job()
-            email = fake.email()
-            print(f"Kontaktuję się z {first_name} {last_name}, {job}, {email}")
-    #contact(3)
-    @property
-    def suma(self):
-        return len(self.first_name + ' ' + self.last_name)
 
-    def __repr__(self):
-        #return f'{self.first_name} {self.last_name} {self.email} {self.suma}'
-         return f"{self.first_name} {self.last_name} {self.email} Suma długości imienia i nazwiska oddzielonych spacją = {self.suma}"
 class BusinessContact(BaseContact):
    def __init__(self, job, company, phone_company, *args, **kwargs):
        super().__init__(*args, **kwargs)
        self.job = job
        self.company = company
        self.phone_company = phone_company
-card = BaseContact(fake.first_name(), fake.last_name(), fake.job(), fake.email())
+    #contact(3)
+    @property
+    def label_length(self):
+        return len(self.first_name + self.last_name)
 
+    def __str__(self):
+        #return f'{self.first_name} {self.last_name} {self.email} {self.suma}'
+         return f"{self.first_name} {self.last_name} {self.email} Suma długości imienia i nazwiska oddzielonych spacją = {self.suma}"
+
+
+    def priv_contact(number):
+        for i in range(number):
+            first_name = fake.first_name()
+            last_name = fake.last_name()
+            job = fake.job()
+            email = fake.email()
+            print(f"Wybieram numer {first_name} {last_name}, {job}, {email}")
+
+card = BaseContact(fake.first_name(), fake.last_name(), fake.job(), fake.email())
 list = []
 for i in range (5):
     list.append(BaseContact(fake.first_name(), fake.last_name(), fake.job(), fake.email()))
