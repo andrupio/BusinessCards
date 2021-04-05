@@ -1,5 +1,5 @@
 from faker import Faker
-fake = Faker()
+fake = Faker('pl_PL')
 class BaseContact:
     def __init__(self, first_name, last_name, phone, email):
         self.first_name = first_name
@@ -7,56 +7,37 @@ class BaseContact:
         self.phone = phone
         self.email = email
 
-class BusinessContact(BaseContact):
-   def __init__(self, job, company, phone_company, *args, **kwargs):
-       super().__init__(*args, **kwargs)
-       self.job = job
-       self.company = company
-       self.phone_company = phone_company
-    #contact(3)
+    def __str__(self):
+        return f'{self.first_name} {self.last_name} {self.phone} {self.email}'
+
+    def base_contact(self):
+        print(f'Wybieram numer {self.phone} i dzwonię do {self.first_name} {self.last_name}, Label length = {self.label_length}')
+
     @property
     def label_length(self):
         return len(self.first_name + self.last_name)
+class BusinessContact(BaseContact):
+    def __init__(self, job, company, phone_company, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.job = job
+        self.company = company
+        self.phone_company = phone_company
+
+    def business_contact(self):
+        print(f' Wybieram numer {self.phone_company} i dzwonię do {self.first_name} {self.last_name}, Label length = {self.label_length}')
 
     def __str__(self):
-        #return f'{self.first_name} {self.last_name} {self.email} {self.suma}'
-         return f"{self.first_name} {self.last_name} {self.email} Suma długości imienia i nazwiska oddzielonych spacją = {self.suma}"
+        return f'{self.first_name} {self.last_name} {self.phone} {self.email} {self.job} {self.company} {self.phone_company} '
 
-
-    def priv_contact(number):
+def create_contacts(type, number):
+    if type == "base":
         for i in range(number):
-            first_name = fake.first_name()
-            last_name = fake.last_name()
-            job = fake.job()
-            email = fake.email()
-            print(f"Wybieram numer {first_name} {last_name}, {job}, {email}")
+            contact = BaseContact(first_name = fake.first_name(), last_name = fake.last_name(), phone = fake.phone_number(), email = fake.email())
+            print(contact, contact.base_contact())
+    elif type == "business":
+        for i in range(number):
+            contact = BusinessContact(first_name = fake.first_name(), last_name = fake.last_name(), phone = fake.phone_number(), email = fake.email(), job = fake.job(), company = fake.company(), phone_company = fake.phone_number())
+            print(contact, contact.business_contact())
 
-card = BaseContact(fake.first_name(), fake.last_name(), fake.job(), fake.email())
-list = []
-for i in range (5):
-    list.append(BaseContact(fake.first_name(), fake.last_name(), fake.job(), fake.email()))
+create_contacts("business", 5)
 
-card1 = list[0]
-card2 = list[1]
-card3 = list[2]
-card4 = list[3]
-card5 = list[4]
-cards = [card1, card2, card3, card4, card5]
-print(card1, card2, card3, card4, card5)
-
-#cards = [list]
-by_first_name = sorted(cards, key=lambda BaseContact: BaseContact.first_name)
-by_last_name = sorted(cards, key=lambda BaseContact: BaseContact.last_name)
-by_email = sorted(cards, key=lambda BaseContact: BaseContact.email)
-
-
-
-# print(by_first_name)
-# print(by_last_name)
-# print(by_email)
-
-#print(by_first_name)
-#print(cards)
-# for i in list:
-#     # print(by_first_name)
-#     print(i.first_name,",", i.last_name, ",", i.email)
