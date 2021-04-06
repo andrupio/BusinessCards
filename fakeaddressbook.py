@@ -19,7 +19,7 @@ class BaseContact:
         return len(self.first_name + self.last_name)
 
     def contact(self):
-        print(f'Wybieram numer {self.phone} i dzwonię do {self.first_name} {self.last_name}, Label length = {self.label_length}')
+        print(f"Wybieram numer {self.phone} i dzwonię do {self.first_name} {self.last_name}, Label length = {self.label_length}")
 class BusinessContact(BaseContact):
     def __init__(self, job, company, company_phone, *args, **kwargs):
         super().__init__( *args, **kwargs)
@@ -47,10 +47,3 @@ def create_contacts(type, number):
 
 create_contacts("business", 2)
 
-
-
-
-# priv = BaseContact(first_name = fake.first_name(), last_name = fake.last_name(), phone = fake.phone_number(), email = fake.email())
-# buss = BusinessContact(first_name = fake.first_name(), last_name = fake.last_name(), phone = fake.phone_number(), email = fake.email(), job = fake.job(), company = fake.company(), company_phone = fake.phone_number())
-# print(priv.contact())
-# print(buss.contact())
