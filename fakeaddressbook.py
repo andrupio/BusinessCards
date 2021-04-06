@@ -20,6 +20,7 @@ class BaseContact:
 
     def contact(self):
         print(f"Wybieram numer {self.phone} i dzwonię do {self.first_name} {self.last_name}, Label length = {self.label_length}")
+
 class BusinessContact(BaseContact):
     def __init__(self, job, company, company_phone, *args, **kwargs):
         super().__init__( *args, **kwargs)
